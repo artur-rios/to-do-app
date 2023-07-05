@@ -1,0 +1,50 @@
+<mat-toolbar>
+  <span>To Do App</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="addTask()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="to-do-wrapper">
+  <ng-container *ngIf="tasks.length > 0">
+    <mat-selection-list (selectionChange)="onSelection($event)">
+      <mat-list-option
+        togglePosition="before"
+        [value]="task"
+        *ngFor="let task of taskList"
+      >
+        <span matListItemTitle [class.task-complete]="task.completed">
+          {{ task.title }}
+          <button mat-icon-button (click)="removeTask(task.id)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+          <button mat-icon-button (click)="editTask(task.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </span>
+        <span matListItemLine>{{ task.description }}</span>
+        <mat-divider></mat-divider>
+      </mat-list-option>
+    </mat-selection-list>
+
+    <mat-paginator
+      #paginator
+      [length]="tasks.length"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+
+    <p *ngIf="tasks.length > 0" class="mat-body-1 todo-status">
+      <span class="mat-body-2">{{ getIncompleteTask() }}</span> of
+      <span class="mat-body-2">{{ tasks.length }}</span> tasks completed
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="tasks.length === 0">
+    <h1 class="no-tasks-message">
+      You have no tasks! Add a new one clicking the button above
+    </h1>
+  </ng-container>
+</div>

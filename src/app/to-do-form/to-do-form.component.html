@@ -1,0 +1,51 @@
+<div class="container mx-auto max-w-md mt-3">
+  <h1 class="text-white">{{ texts.title }}</h1>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="text-white">{{ texts.subtitle }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="todo-form">
+        <mat-form-field class="todo-width">
+          <input
+            matInput
+            type="text"
+            [formControl]="getFormControl('title')"
+            placeholder="Task title"
+          />
+          <mat-error
+            *ngIf="submitted && form.invalid && f['title'].hasError('required')"
+            >You must enter a title</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field class="todo-width">
+          <input
+            matInput
+            type="text"
+            [formControl]="getFormControl('description')"
+            placeholder="Task description"
+          />
+          <mat-error
+            *ngIf="
+              submitted && form.invalid && f['description'].hasError('required')
+            "
+            >You must enter a description</mat-error
+          >
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">
+            {{ texts.buttonText }}
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="cancel()"
+          >
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
