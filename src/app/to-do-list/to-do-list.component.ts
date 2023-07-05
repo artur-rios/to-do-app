@@ -61,6 +61,7 @@ export class ToDoListComponent {
     if (index >= 0) {
       const task = this.tasks.find((task) => task.id === id);
       this.tasks.splice(index, 1);
+      this.linkListToPaginator();
       this.browserStorageService.setLocalObject('tasks', this.tasks);
       this.dialogService.openSimpleDialog(
         'Success',
